@@ -2,11 +2,14 @@ import React from "react";
 import Card from "./shared/Card";
 import { useState } from "react";
 import Button from "./shared/Button";
+import RaringSelect from "./RaringSelect";
+import { v4 as uuidv4 } from "uuid";
 
-function FeedbackForm() {
+function FeedbackForm({ addFeedback }) {
   const [text, setText] = useState("");
   const [message, setMessage] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [rating, setRating] = useState(10);
 
   const handlerInput = ({ target: { value } }) => {
     setText(value);
@@ -23,9 +26,18 @@ function FeedbackForm() {
     }
   };
 
+  const handleFeedback = (e) => {
+    e.preventDefault();
+
+    if (text.trim().length > 10) {
+      addFeedback({ id: uuidv4(), rating, text });
+    }
+  };
+
   return (
     <Card>
-      <form>
+      <RaringSelect select={(rating) => setRating(rating)} selected={rating} />
+      <form onSubmit={handleFeedback}>
         <h2>How would you rate your service with us?</h2>
         <div className="input-group">
           <input
