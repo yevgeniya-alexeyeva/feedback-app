@@ -12,7 +12,7 @@ function RaringSelect({ select, selected }) {
             name="rating"
             value={i + 1}
             onChange={handleSelect}
-            selected={selected === i + 1}
+            checked={selected === i + 1}
           />
           <label htmlFor={`num${i + 1}`}>{i + 1}</label>
         </li>
